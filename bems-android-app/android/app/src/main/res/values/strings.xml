@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">BEMS Monitor</string>
-    <string name="title_activity_main">BEMS Monitor</string>
-    <string name="package_name">com.bems.monitor</string>
-    <string name="custom_url_scheme">com.bems.monitor</string>
-</resources>
