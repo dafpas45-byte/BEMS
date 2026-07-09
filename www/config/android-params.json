@@ -1,0 +1,143 @@
+{
+  "_comment": "Konfigurasi khusus Android untuk BEMS Monitor. Ambang batas (thresholds) diturunkan dari 90 parameter di dashboard (kategori & nilai dasar/base value pada bems-dashboard.html), mengacu ke standar umum PLN/IEC untuk sistem 3-fasa 230/400V 50Hz.",
+  "appId": "com.bems.monitor",
+  "generatedFrom": "bems-dashboard.html (90 parameters, 15 categories)",
+
+  "refreshIntervalMs": 3000,
+  "backgroundSyncIntervalMinutes": 15,
+  "reconnectRetrySeconds": 10,
+
+  "notificationChannels": [
+    { "id": "bems_critical", "name": "BEMS Kritis", "importance": "HIGH", "description": "Alarm parameter melewati batas kritis" },
+    { "id": "bems_warning", "name": "BEMS Peringatan", "importance": "DEFAULT", "description": "Parameter mendekati batas ambang" },
+    { "id": "bems_info", "name": "BEMS Info", "importance": "LOW", "description": "Ringkasan energi harian/bulanan" }
+  ],
+
+  "categories": {
+    "voltage": {
+      "label": "Voltage",
+      "unit": "V",
+      "nominalLN": 230,
+      "nominalLL": 400,
+      "warningPct": 5,
+      "criticalPct": 10,
+      "params": ["V1-N", "V2-N", "V3-N", "Vavg L-N", "V1-2", "V2-3", "V3-1", "Vavg L-L"]
+    },
+    "current": {
+      "label": "Current",
+      "unit": "A",
+      "warningPct": 85,
+      "criticalPct": 100,
+      "ratedLoadA": 175,
+      "params": ["I1", "I2", "I3", "Iavg", "In (Neutral)"]
+    },
+    "active-power": {
+      "label": "Active Power",
+      "unit": "kW",
+      "warningKw": 320,
+      "criticalKw": 380,
+      "params": ["P1", "P2", "P3", "P Total"]
+    },
+    "reactive-power": {
+      "label": "Reactive Power",
+      "unit": "kVAR",
+      "params": ["Q1", "Q2", "Q3", "Q Total"]
+    },
+    "apparent-power": {
+      "label": "Apparent Power",
+      "unit": "kVA",
+      "warningKva": 340,
+      "criticalKva": 400,
+      "params": ["S1", "S2", "S3", "S Total"]
+    },
+    "power-factor": {
+      "label": "Power Factor",
+      "unit": "",
+      "warningMin": 0.9,
+      "criticalMin": 0.85,
+      "params": ["PF1", "PF2", "PF3", "PF Total"]
+    },
+    "frequency": {
+      "label": "Frequency & Stability",
+      "unit": "Hz",
+      "nominal": 50.0,
+      "warningPct": 1,
+      "criticalPct": 2,
+      "params": ["Frequency", "Freq Min (24h)", "Freq Max (24h)"]
+    },
+    "energy": {
+      "label": "Energy",
+      "unit": "kWh",
+      "dailyBudgetKwh": 1500,
+      "params": ["Active Energy Import", "Active Energy Export", "Reactive Energy Import", "Reactive Energy Export", "Apparent Energy", "Active Energy Today"]
+    },
+    "thd-v": {
+      "label": "THD Voltage",
+      "unit": "%",
+      "standard": "IEC 61000-2-2 / IEEE 519",
+      "warningPct": 5,
+      "criticalPct": 8,
+      "params": ["THD V1", "THD V2", "THD V3", "THD V1 3rd Order", "THD V1 5th Order", "THD V1 7th Order"]
+    },
+    "thd-i": {
+      "label": "THD Current",
+      "unit": "%",
+      "standard": "IEEE 519",
+      "warningPct": 8,
+      "criticalPct": 12,
+      "params": ["THD I1", "THD I2", "THD I3", "THD I1 3rd Order", "THD I1 5th Order", "THD I1 7th Order"]
+    },
+    "quality": {
+      "label": "Unbalance & Quality",
+      "unit": "%",
+      "voltageUnbalanceWarningPct": 2,
+      "voltageUnbalanceCriticalPct": 3,
+      "currentUnbalanceWarningPct": 10,
+      "currentUnbalanceCriticalPct": 15,
+      "params": ["Voltage Unbalance", "Current Unbalance", "Crest Factor I1", "K-Factor I1"]
+    },
+    "demand": {
+      "label": "Demand",
+      "unit": "kW/kVAR/kVA/A",
+      "params": ["Current Demand I1", "Current Demand I2", "Current Demand I3", "Current Demand Avg", "Power Demand", "Power Demand Max", "Reactive Demand", "Apparent Demand"]
+    },
+    "minmax-v": {
+      "label": "Min/Max Voltage (24h)",
+      "unit": "V",
+      "params": ["V1-N Min (24h)", "V1-N Max (24h)", "V2-N Min (24h)", "V2-N Max (24h)", "V3-N Min (24h)", "V3-N Max (24h)"]
+    },
+    "minmax-i": {
+      "label": "Min/Max Current (24h)",
+      "unit": "A",
+      "params": ["I1 Min (24h)", "I1 Max (24h)", "I2 Min (24h)", "I2 Max (24h)", "I3 Min (24h)", "I3 Max (24h)"]
+    },
+    "misc": {
+      "label": "Ground / Neutral / Misc",
+      "unit": "mixed",
+      "groundCurrentWarningA": 1.0,
+      "groundCurrentCriticalA": 2.0,
+      "params": ["Ground Current", "Neutral Current Max (24h)", "Voltage THD Max (24h)", "Current THD Max (24h)", "Harmonic Power Loss", "Load Factor"]
+    },
+    "tariff": {
+      "label": "Tariff & Billing",
+      "unit": "mixed",
+      "currency": "IDR",
+      "params": ["Peak Active Energy", "Off-Peak Active Energy", "Shoulder Active Energy", "Max Demand This Month", "Max Demand Last Month", "Cost Estimate Today", "Cost Estimate Month (proj.)", "CO2 Emission Estimate", "PF Penalty Estimate", "Load Percentage"]
+    }
+  },
+
+  "androidSpecific": {
+    "minSdkVersion": 23,
+    "targetSdkVersion": 34,
+    "permissionsUsed": [
+      "android.permission.INTERNET",
+      "android.permission.ACCESS_NETWORK_STATE",
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "allowBackgroundRefresh": true,
+    "keepScreenOnWhileMonitoring": false,
+    "orientationLock": "unspecified",
+    "themeColor": "#080B14"
+  }
+}
